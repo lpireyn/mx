@@ -23,7 +23,14 @@ _require_param() {
     fi
 }
 
+_log() {
+    if [[ -n "$_log_file" ]]; then
+        printf '[%s] %s\n' "$(date)" "$1" >> "$_log_file"
+    fi
+}
+
 _tmux() {
+    _log "$_tmux_cmd ${*@Q}"
     if ! "$_tmux_cmd" "$@"; then
         _fail "tmux exited with non-zero value"
     fi
@@ -83,9 +90,11 @@ _create_window_maybe() {
         if [[ -z "$_session_id" ]]; then
             # Session not yet created, create session and first window
             read -r _session_id _window_id _pane_id <<< "$(_create_session)"
+            _log "Session created (session: $_session_id '$_session_name', window: $_window_id '$_window_name', pane: $_pane_id)"
         else
             # Session already created, create window
             read -r _window_id _pane_id <<< "$(_create_window)"
+            _log "Window created (session: $_session_id '$_session_name', window: $_window_id '$_window_name', pane: $_pane_id)"
         fi
     fi
 }
@@ -193,6 +202,7 @@ mx_usage() {
     cat <<EOF
 Usage:
     --version    Displays the version
+    --log FILE   Log tmux commands in FILE
     -h|--help    Displays this help
 EOF
 }
@@ -205,6 +215,8 @@ mx_main() {
     set -o pipefail
     # Activate error handling
     trap _error ERR
+    # Initialize variables
+    declare _log_file=
     # Parse parameters
     local session_file_name=
     local param
@@ -215,6 +227,11 @@ mx_main() {
             --version)
                 mx_version
                 exit 0
+                ;;
+            --log)
+                _require_param 'log file' "$1"
+                _log_file="$1"
+                shift
                 ;;
             -h|--help)
                 mx_usage
@@ -267,6 +284,7 @@ mx_main() {
     declare _pane_dir=
     declare _pane_shell=
     # Execute session file
+    _log "Executing session file: $session_file"
     . "$session_file"
     # End session and attach client to it
     if _end_session; then
