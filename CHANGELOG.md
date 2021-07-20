@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0
 
 ### Added
 
-- `mx `script
+- `mx` script
 - `--tmux` option
 - `--version` option
 - `--log` option
