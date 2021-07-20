@@ -291,6 +291,7 @@ mx_main() {
     declare _pane_shell=
     # Execute session file
     _log "Executing session file: $session_file"
+    # shellcheck source=/dev/null
     . "$session_file"
     # End session and attach client to it
     if _end_session; then
