@@ -217,7 +217,7 @@ mx_main() {
     # Activate error handling
     trap _error ERR
     # Initialize variables
-    declare _tmux_cmd=tmux
+    declare _tmux_cmd="${MX_TMUX:-tmux}"
     declare _log_file=
     # Parse parameters
     local session_file_name=
