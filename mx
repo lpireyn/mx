@@ -1,0 +1,286 @@
+#!/usr/bin/env bash
+# -*- mode: sh -*-
+
+# mx, a tmux session manager
+# Author: Laurent Pireyn
+
+# Private functions
+
+_error() {
+    # Deactivate error handling
+    trap - ERR
+    exit "${1:-1}"
+}
+
+_fail() {
+    printf '%s\n' "${1:-Error}" >&2
+    _error "${2:-}"
+}
+
+_require_param() {
+    if [[ -z "$2" ]]; then
+        _fail "Missing parameter: $1" 2
+    fi
+}
+
+_tmux() {
+    if ! "$_tmux_cmd" "$@"; then
+        _fail "tmux exited with non-zero value"
+    fi
+}
+
+_require_session_started() {
+    if [[ -z "$_session_name" ]]; then
+        _fail 'No session started'
+    fi
+}
+
+_require_window_started() {
+    _require_session_started
+    if [[ -z "$_window_name" ]]; then
+        _fail 'No window started'
+    fi
+}
+
+_create_session() {
+    _require_session_started
+    local dir="${_pane_dir:-$_default_dir}"
+    local shell="${_pane_shell:-$_default_shell}"
+    local -a opts=(new-session)
+    opts+=(-s "$_session_name")
+    opts+=(-n "$_window_name")
+    if [[ -n "$dir" ]]; then
+        opts+=(-c "$dir")
+    fi
+    opts+=(-d)
+    opts+=(-P -F '#{session_id} #{window_id} #{pane_id}')
+    if [[ -n "$shell" ]]; then
+        opts+=("$shell")
+    fi
+    _tmux "${opts[@]}"
+}
+
+_create_window() {
+    _require_window_started
+    local dir="${_pane_dir:-$_default_dir}"
+    local shell="${_pane_shell:-$_default_shell}"
+    local -a opts=(new-window)
+    opts+=(-t "$_session_id")
+    opts+=(-n "$_window_name")
+    if [[ -n "$dir" ]]; then
+        opts+=(-c "$dir")
+    fi
+    opts+=(-d)
+    opts+=(-P -F '#{window_id} #{pane_id}')
+    if [[ -n "$shell" ]]; then
+        opts+=("$shell")
+    fi
+    _tmux "${opts[@]}"
+}
+
+_create_window_maybe() {
+    if [[ -z "$_window_id" ]]; then
+        if [[ -z "$_session_id" ]]; then
+            # Session not yet created, create session and first window
+            read -r _session_id _window_id _pane_id <<< "$(_create_session)"
+        else
+            # Session already created, create window
+            read -r _window_id _pane_id <<< "$(_create_window)"
+        fi
+    fi
+}
+
+_end_session() {
+    _end_window
+    _session_name=
+}
+
+_end_window() {
+    _create_window_maybe
+    _window_id=
+    _window_name=
+    _pane_id=
+    _pane_shell=
+}
+
+_end_window_maybe() {
+    if [[ -n "$_window_name" ]]; then
+        _end_window
+    fi
+}
+
+# DSL functions (alphabetically)
+
+Command() {
+    _create_window_maybe
+    _tmux send-keys -t "$_pane_id" -l "$*"
+    _tmux send-keys -t "$_pane_id" Enter
+}
+
+Directory() {
+    _require_param 'directory' "$1"
+    if [[ -n "$_window_name" ]]; then
+        if [[ -n "$_window_id" ]]; then
+            _fail 'Directory specified too late'
+        fi
+        _pane_dir="$1"
+    else
+        _require_session_started
+        if [[ -n "$_session_id" ]]; then
+            _fail 'Directory specified too late'
+        fi
+        _default_dir="$1"
+    fi
+}
+
+Layout() {
+    _require_param 'layout name' "$1"
+    _create_window_maybe
+    _tmux select-layout -t "$_window_id" "$1"
+}
+
+Session() {
+    _require_param 'session name' "$1"
+    if [[ -n "$_session_id" ]]; then
+        _fail 'Session already started'
+    fi
+    _session_name="$*"
+    if "$_tmux_cmd" has-session -t "=$_session_name" >/dev/null 2>&1; then
+        # A session with the same name already exists, attach client to it
+        exec "$_tmux_cmd" attach-session -t "=$_session_name"
+    fi
+}
+
+Shell() {
+    _require_param 'shell' "$1"
+    if [[ -n "$_window_name" ]]; then
+        if [[ -n "$_window_id" ]]; then
+            _fail 'Shell specified too late'
+        fi
+        _pane_shell="$*"
+    else
+        _require_session_started
+        if [[ -n "$_session_id" ]]; then
+            _fail 'Shell specified too late'
+        fi
+        _default_shell="$*"
+    fi
+}
+
+SourceFile() {
+    _require_param 'file' "$1"
+    _tmux source-file "$1"
+}
+
+Split() {
+    _create_window_maybe
+    _tmux split-window -t "$_window_id"
+}
+
+Window() {
+    _require_param 'window name' "$1"
+    _end_window_maybe
+    _window_name="$*"
+}
+
+# mx functions
+
+mx_version() {
+    printf 'mx %s\n' "$mx_version"
+}
+
+mx_usage() {
+    cat <<EOF
+Usage:
+    --version    Displays the version
+    -h|--help    Displays this help
+EOF
+}
+
+mx_main() {
+    # Configure Bash
+    set -o errexit
+    set -o errtrace
+    set -o nounset
+    set -o pipefail
+    # Activate error handling
+    trap _error ERR
+    # Parse parameters
+    local session_file_name=
+    local param
+    while [[ $# -gt 0 ]]; do
+        param="$1"
+        shift
+        case $param in
+            --version)
+                mx_version
+                exit 0
+                ;;
+            -h|--help)
+                mx_usage
+                exit 0
+                ;;
+            -*)
+                _fail "Unknown option: $param" 2
+                ;;
+            *)
+                if [[ -z "$session_file_name" ]]; then
+                    session_file_name="$param"
+                else
+                    _fail "Unexpected parameter: $param" 2
+                fi
+                ;;
+        esac
+    done
+    local session_file
+    if [[ -z "$session_file_name" ]]; then
+        # Session file name not specified; use default session file
+        session_file=.mx
+        if [[ ! -f "$session_file" ]]; then
+            _fail "Default session file $session_file not found"
+        fi
+    else
+        # Session file name specified; determine session file
+        for session_file in {,"${XDG_CONFIG_HOME:-$HOME/.config}/mx/"}"$session_file_name"{,.mx}; do
+            if [[ -f "$session_file" ]]; then
+                break
+            fi
+            session_file=
+        done
+        if [[ -z "$session_file" ]]; then
+            _fail "Session file for session $session_file_name not found"
+        fi
+    fi
+    # Prevent nested sessions
+    if [[ -n "${TMUX+x}" ]]; then
+        _fail 'Already in tmux session'
+    fi
+    # Initialize tmux variables
+    declare _tmux_cmd=tmux
+    declare _session_id=
+    declare _session_name=
+    declare _default_dir=
+    declare _default_shell=
+    declare _window_id=
+    declare _window_name=
+    declare _pane_id=
+    declare _pane_dir=
+    declare _pane_shell=
+    # Execute session file
+    . "$session_file"
+    # End session and attach client to it
+    if _end_session; then
+        exec "$_tmux_cmd" attach-session -t "$_session_id"
+    fi
+}
+
+# Constants
+
+declare -gr mx_version='0.1.0'
+
+# Main
+
+# Do nothing if mx is sourced
+if ! (return 0 2>/dev/null); then
+    mx_main "$@"
+fi
