@@ -201,6 +201,7 @@ mx_version() {
 mx_usage() {
     cat <<EOF
 Usage:
+    --tmux CMD   Specifies the tmux command to use
     --version    Displays the version
     --log FILE   Log tmux commands in FILE
     -h|--help    Displays this help
@@ -216,6 +217,7 @@ mx_main() {
     # Activate error handling
     trap _error ERR
     # Initialize variables
+    declare _tmux_cmd=tmux
     declare _log_file=
     # Parse parameters
     local session_file_name=
@@ -224,6 +226,11 @@ mx_main() {
         param="$1"
         shift
         case $param in
+            --tmux)
+                _require_param 'tmux command' "$1"
+                _tmux_cmd="$1"
+                shift
+                ;;
             --version)
                 mx_version
                 exit 0
@@ -273,7 +280,6 @@ mx_main() {
         _fail 'Already in tmux session'
     fi
     # Initialize tmux variables
-    declare _tmux_cmd=tmux
     declare _session_id=
     declare _session_name=
     declare _default_dir=
