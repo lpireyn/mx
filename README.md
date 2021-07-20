@@ -50,6 +50,44 @@ This creates a `mx` directory in your home directory, which contains the `mx` sc
 
 For convenience, the `mx` script can be copied to a directory in your `PATH` (typically `~/.local/bin`, `~/bin` or `/usr/local/bin`).
 
+## Usage
+
+| Command line | Description |
+| --- | --- |
+| `mx` [`--tmux` CMD] [`--log` LOGFILE] [MXFILE] | Executes the mx session file MXFILE |
+| `mx --version` | Displays the mx version |
+| `mx -h\|--help` | Displays the help |
+
+The mx session file is the first of the following files that is found:
+
+1. If MXFILE is omitted, the file `.mx` in the current directory
+2. MXFILE (or MXFILE.mx) in the current directory
+3. MXFILE (or MXFILE.mx) in the `$XDG_CONFIG_HOME/mx` directory (`$XDG_CONFIG_HOME` defaults to `~/.config`)
+
+This supports the following common usecases:
+
+- Per-project mx sessions, stored in a `.mx` file in the project root directory
+- Per-user mx sessions, stored in `~/.config/mx/*.mx` files (can be managed like other dotfiles)
+
+## DSL functions
+
+An *mx session* file is a Bash script that calls the following *mx DSL functions* to configure the tmux session.
+
+| Function | Description |
+| --- | --- |
+| `Command` COMMAND [ARGS...] | Executes COMMAND in the current pane (by sending the corresponding keys) |
+| `Directory` DIRECTORY | Sets the current directory of the current pane (or the default directory of the session) to DIRECTORY |
+| `Layout` LAYOUT | Sets the layout of the current window to LAYOUT |
+| `Session` NAME | Starts the session named NAME |
+| `Shell` SHELL | Sets the shell command of the current pane (or the default shell command of the session) to SHELL |
+| `SourceFile` FILE | Sources the tmux file FILE |
+| `Split` | Splits the current window to create a pane |
+| `Window` NAME | Starts a window named NAME |
+
+**Note:**
+Although it's a Bash script, an mx session file does not need a shebang and does not have to be executable.
+However, it can use Bash constructs such as variables, conditions, loops, etc.
+
 ## Changelog
 
 See [CHANGELOG](CHANGELOG.md).
