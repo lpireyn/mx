@@ -2,6 +2,7 @@
 
 **mx** is a [tmux](https://github.com/tmux/tmux) session manager written as a single [Bash](https://www.gnu.org/software/bash) script.
 
+[![Pipeline](https://img.shields.io/gitlab/pipeline/lpireyn/mx/master?label=Pipeline&style=flat-square&logo=gitlab)](https://gitlab.com/lpireyn/mx/-/commits/master)
 [![Apache License 2.0](https://img.shields.io/static/v1?label=License&message=Apache%20License%202.0&style=flat-square&color=informational&logo=apache)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Semantic Versioning 2.0.0](https://img.shields.io/static/v1?label=Semantic%20Versioning&message=2.0.0&style=flat-square&color=informational)](https://semver.org/spec/v2.0.0)
 [![Keep a Changelog 1.0.0](https://img.shields.io/static/v1?label=Keep%20a%20Changelog&message=1.0.0&style=flat-square&color=informational)](https://keepachangelog.com/en/1.0.0)
