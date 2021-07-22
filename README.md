@@ -52,19 +52,29 @@ For convenience, the `mx` script can be copied to a directory in your `PATH` (ty
 
 ## Usage
 
-| Command line | Description |
-| --- | --- |
-| `mx` [`--tmux` CMD] [`--log` LOGFILE] [MXFILE] | Executes the mx session file MXFILE |
-| `mx --version` | Displays the mx version |
-| `mx -h\|--help` | Displays the help |
+```
+Usage: mx [OPTION]... [FILE]
+Execute the tmux session defined in the mx FILE.
 
-The mx session file is the first of the following files that is found:
+If a tmux session with the same name already exists, the tmux client attaches to it,
+otherwise the session is created.
 
-1. If MXFILE is omitted, the file `.mx` in the current directory
-2. MXFILE (or MXFILE.mx) in the current directory
-3. MXFILE (or MXFILE.mx) in the `$XDG_CONFIG_HOME/mx` directory (`$XDG_CONFIG_HOME` defaults to `~/.config`)
+FILE is looked for in the current directory, then in '$XDG_CONFIG_HOME/mx',
+with and without the '.mx' extension.
+$XDG_CONFIG_HOME defaults to '$HOME/.config'.
+FILE defaults to '.mx' in the current directory.
 
-This supports the following common usecases:
+mx does not execute a session if $TMUX is already set.
+
+Options:
+  --tmux CMD   Specifies the tmux command to use
+               Defaults to $MX_TMUX, then to 'tmux'
+  --log FILE   Logs the tmux commands in FILE
+  --version    Displays the mx version and exits
+  -h|--help    Displays this help and exits
+```
+
+mx supports the following common usecases out of the box:
 
 - Per-project mx sessions, stored in a `.mx` file in the project root directory
 - Per-user mx sessions, stored in `~/.config/mx/*.mx` files (can be managed like other dotfiles)
