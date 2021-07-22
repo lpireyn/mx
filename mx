@@ -200,11 +200,27 @@ mx_version() {
 
 mx_usage() {
     cat <<EOF
-Usage:
-    --tmux CMD   Specifies the tmux command to use
-    --version    Displays the version
-    --log FILE   Log tmux commands in FILE
-    -h|--help    Displays this help
+Usage: mx [OPTION]... [FILE]
+Execute the tmux session defined in the mx FILE.
+
+If a tmux session with the same name already exists, the tmux client attaches to it,
+otherwise the session is created.
+
+FILE is looked for in the current directory, then in '\$XDG_CONFIG_HOME/mx',
+with and without the '.mx' extension.
+\$XDG_CONFIG_HOME defaults to '\$HOME/.config'.
+FILE defaults to '.mx' in the current directory.
+
+mx does not execute a session if \$TMUX is already set.
+
+Options:
+  --tmux CMD   Specifies the tmux command to use
+               Defaults to \$MX_TMUX, then to 'tmux'
+  --log FILE   Logs the tmux commands in FILE
+  --version    Displays the mx version and exits
+  -h|--help    Displays this help and exits
+
+mx homepage: <https://gitlab.com/lpireyn/mx>
 EOF
 }
 
@@ -231,14 +247,14 @@ mx_main() {
                 _tmux_cmd="$1"
                 shift
                 ;;
-            --version)
-                mx_version
-                exit 0
-                ;;
             --log)
                 _require_param 'log file' "$1"
                 _log_file="$1"
                 shift
+                ;;
+            --version)
+                mx_version
+                exit 0
                 ;;
             -h|--help)
                 mx_usage
