@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0
 
 ## [Unreleased]
 
+### Added
+
+- DSL function `EnvVar`
+
 ### Fixed
 
 - DSL function `Split` now passes options and sets pane ID

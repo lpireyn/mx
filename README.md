@@ -88,6 +88,7 @@ An *mx session* file is a Bash script that calls the following *mx DSL functions
 | --- | --- |
 | `Command` COMMAND [ARGS...] | Executes COMMAND in the current pane (by sending the corresponding keys) |
 | `Directory` DIRECTORY | Sets the current directory of the current pane (or the default directory of the session) to DIRECTORY |
+| `EnvVar` NAME [VALUE] | Sets environment variable NAME to VALUE (or null) in the current pane (or in all panes of the session)
 | `Layout` LAYOUT | Sets the layout of the current window to LAYOUT |
 | `Session` NAME | Starts the session named NAME |
 | `Shell` SHELL | Sets the shell command of the current pane (or the default shell command of the session) to SHELL |
@@ -111,7 +112,7 @@ See [CHANGELOG](CHANGELOG.md).
 
 ### Features
 
-- [ ] DSL function to set environment variables
+- [x] DSL function to set environment variables
 - [ ] DSL function aliases
 
 ## Contributing

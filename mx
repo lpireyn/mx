@@ -52,12 +52,18 @@ _require_window_started() {
 _create_pane() {
     _require_window_started
     local dir="${_pane_dir:-$_default_dir}"
+    local -a env=("${_default_env[@]}")
+    env+=("${_pane_env[@]}")
     local shell="${_pane_shell:-$_default_shell}"
     local -a opts=(split-window)
     opts+=(-t "$_pane_id")
     if [[ -n "$dir" ]]; then
         opts+=(-c "$dir")
     fi
+    local env_var
+    for env_var in "${env[@]}"; do
+        opts+=(-e "$env_var")
+    done
     opts+=(-d)
     opts+=(-P -F '#{pane_id}')
     if [[ -n "$shell" ]]; then
@@ -69,6 +75,8 @@ _create_pane() {
 _create_session() {
     _require_session_started
     local dir="${_pane_dir:-$_default_dir}"
+    local -a env=("${_default_env[@]}")
+    env+=("${_pane_env[@]}")
     local shell="${_pane_shell:-$_default_shell}"
     local -a opts=(new-session)
     opts+=(-s "$_session_name")
@@ -76,6 +84,10 @@ _create_session() {
     if [[ -n "$dir" ]]; then
         opts+=(-c "$dir")
     fi
+    local env_var
+    for env_var in "${env[@]}"; do
+        opts+=(-e "$env_var")
+    done
     opts+=(-d)
     opts+=(-P -F '#{session_id} #{window_id} #{pane_id}')
     if [[ -n "$shell" ]]; then
@@ -87,6 +99,8 @@ _create_session() {
 _create_window() {
     _require_window_started
     local dir="${_pane_dir:-$_default_dir}"
+    local -a env=("${_default_env[@]}")
+    env+=("${_pane_env[@]}")
     local shell="${_pane_shell:-$_default_shell}"
     local -a opts=(new-window)
     opts+=(-t "$_session_id")
@@ -94,6 +108,10 @@ _create_window() {
     if [[ -n "$dir" ]]; then
         opts+=(-c "$dir")
     fi
+    local env_var
+    for env_var in "${env[@]}"; do
+        opts+=(-e "$env_var")
+    done
     opts+=(-d)
     opts+=(-P -F '#{window_id} #{pane_id}')
     if [[ -n "$shell" ]]; then
@@ -126,6 +144,7 @@ _end_window() {
     _window_id=
     _window_name=
     _pane_id=
+    _pane_env=()
     _pane_shell=
 }
 
@@ -156,6 +175,22 @@ Directory() {
             _fail 'Directory specified too late'
         fi
         _default_dir="$1"
+    fi
+}
+
+EnvVar() {
+    _require_param 'name' "$1"
+    if [[ -n "$_window_name" ]]; then
+        if [[ -n "$_window_id" ]]; then
+            _fail 'EnvVar specified too late'
+        fi
+        _pane_env+=("$1=$2")
+    else
+        _require_session_started
+        if [[ -n "$_session_id" ]]; then
+            _fail 'EnvVar specified too late'
+        fi
+        _default_env+=("$1=$2")
     fi
 }
 
@@ -316,11 +351,13 @@ mx_main() {
     declare _session_id=
     declare _session_name=
     declare _default_dir=
+    declare -a _default_env=()
     declare _default_shell=
     declare _window_id=
     declare _window_name=
     declare _pane_id=
     declare _pane_dir=
+    declare -a _pane_env=()
     declare _pane_shell=
     # Execute session file
     _log "Executing session file: $session_file"
