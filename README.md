@@ -86,12 +86,16 @@ An *mx session* file is a Bash script that calls the following *mx DSL functions
 
 | Function | Description |
 | --- | --- |
+| `Cmd` | Alias of `Command` |
 | `Command` COMMAND [ARGS...] | Executes COMMAND in the current pane (by sending the corresponding keys) |
+| `Dir` | Alias of `Directory` |
 | `Directory` DIRECTORY | Sets the current directory of the current pane (or the default directory of the session) to DIRECTORY |
+| `Env` | Alias of `EnvVar` |
 | `EnvVar` NAME [VALUE] | Sets environment variable NAME to VALUE (or null) in the current pane (or in all panes of the session)
 | `Layout` LAYOUT | Sets the layout of the current window to LAYOUT |
 | `Session` NAME | Starts the session named NAME |
 | `Shell` SHELL | Sets the shell command of the current pane (or the default shell command of the session) to SHELL |
+| `Source` | Alias of `SourceFile` |
 | `SourceFile` FILE | Sources the tmux file FILE |
 | `Split` | Splits the current window to create a pane |
 | `Window` NAME | Starts a window named NAME |
@@ -113,7 +117,7 @@ See [CHANGELOG](CHANGELOG.md).
 ### Features
 
 - [x] DSL function to set environment variables
-- [ ] DSL function aliases
+- [x] DSL function aliases
 
 ## Contributing
 

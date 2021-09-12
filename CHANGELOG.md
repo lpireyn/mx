@@ -9,6 +9,10 @@ This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0
 ### Added
 
 - DSL function `EnvVar`
+- DSL function alias `Cmd`
+- DSL function alias `Dir`
+- DSL function alias `Env`
+- DSL function alias `Source`
 
 ### Fixed
 

@@ -156,10 +156,18 @@ _end_window_maybe() {
 
 # DSL functions (alphabetically)
 
+Cmd() {
+    Command "$@"
+}
+
 Command() {
     _create_window_maybe
     _tmux send-keys -t "$_pane_id" -l "$*"
     _tmux send-keys -t "$_pane_id" Enter
+}
+
+Dir() {
+    Directory "$@"
 }
 
 Directory() {
@@ -176,6 +184,10 @@ Directory() {
         fi
         _default_dir="$1"
     fi
+}
+
+Env() {
+    EnvVar "$@"
 }
 
 EnvVar() {
@@ -226,6 +238,10 @@ Shell() {
         fi
         _default_shell="$*"
     fi
+}
+
+Source() {
+    SourceFile "$@"
 }
 
 SourceFile() {
