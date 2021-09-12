@@ -166,13 +166,13 @@ Directory() {
     _require_param 'directory' "$1"
     if [[ -n "$_window_name" ]]; then
         if [[ -n "$_window_id" ]]; then
-            _fail 'Directory specified too late'
+            _fail "${FUNCNAME[0]} specified too late"
         fi
         _pane_dir="$1"
     else
         _require_session_started
         if [[ -n "$_session_id" ]]; then
-            _fail 'Directory specified too late'
+            _fail "${FUNCNAME[0]} specified too late"
         fi
         _default_dir="$1"
     fi
@@ -182,13 +182,13 @@ EnvVar() {
     _require_param 'name' "$1"
     if [[ -n "$_window_name" ]]; then
         if [[ -n "$_window_id" ]]; then
-            _fail 'EnvVar specified too late'
+            _fail "${FUNCNAME[0]} specified too late"
         fi
         _pane_env+=("$1=$2")
     else
         _require_session_started
         if [[ -n "$_session_id" ]]; then
-            _fail 'EnvVar specified too late'
+            _fail "${FUNCNAME[0]} specified too late"
         fi
         _default_env+=("$1=$2")
     fi
@@ -216,13 +216,13 @@ Shell() {
     _require_param 'shell' "$1"
     if [[ -n "$_window_name" ]]; then
         if [[ -n "$_window_id" ]]; then
-            _fail 'Shell specified too late'
+            _fail "${FUNCNAME[0]} specified too late"
         fi
         _pane_shell="$*"
     else
         _require_session_started
         if [[ -n "$_session_id" ]]; then
-            _fail 'Shell specified too late'
+            _fail "${FUNCNAME[0]} specified too late"
         fi
         _default_shell="$*"
     fi
