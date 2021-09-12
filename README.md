@@ -92,7 +92,7 @@ An *mx session* file is a Bash script that calls the following *mx DSL functions
 | `Directory` DIRECTORY | Sets the current directory of the current pane (or the default directory of the session) to DIRECTORY |
 | `Env` | Alias of `EnvVar` |
 | `EnvVar` NAME [VALUE] | Sets environment variable NAME to VALUE (or null) in the current pane (or in all panes of the session)
-| `Layout` LAYOUT | Sets the layout of the current window to LAYOUT |
+| `Layout` LAYOUT | Sets the layout of the current window to LAYOUT (see [Layouts](#layouts)) |
 | `Session` NAME | Starts the session named NAME |
 | `Shell` SHELL | Sets the shell command of the current pane (or the default shell command of the session) to SHELL |
 | `Source` | Alias of `SourceFile` |
@@ -103,6 +103,19 @@ An *mx session* file is a Bash script that calls the following *mx DSL functions
 **Note:**
 Although it's a Bash script, an mx session file does not need a shebang and does not have to be executable.
 However, it can use Bash constructs such as variables, conditions, loops, etc.
+
+## Layouts
+
+tmux supports the following layouts:
+
+- `even-horizontal`
+- `even-vertical`
+- `main-horizontal`
+- `main-vertical`
+- `tiled`
+- Custom layouts
+
+See the [`select-layout` tmux command](http://man.openbsd.org/OpenBSD-current/man1/tmux.1#select-layout) for details.
 
 ## Changelog
 
