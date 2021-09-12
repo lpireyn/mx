@@ -103,6 +103,17 @@ However, it can use Bash constructs such as variables, conditions, loops, etc.
 
 See [CHANGELOG](CHANGELOG.md).
 
+## Roadmap
+
+### Bugs
+
+- [ ] Panes created with the DSL function `Split` use the same directory and shell as the split pane
+
+### Features
+
+- [ ] DSL function to set environment variables
+- [ ] DSL function aliases
+
 ## Contributing
 
 See [CONTRIBUTING](CONTRIBUTING.md).
