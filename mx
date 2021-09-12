@@ -49,6 +49,23 @@ _require_window_started() {
     fi
 }
 
+_create_pane() {
+    _require_window_started
+    local dir="${_pane_dir:-$_default_dir}"
+    local shell="${_pane_shell:-$_default_shell}"
+    local -a opts=(split-window)
+    opts+=(-t "$_pane_id")
+    if [[ -n "$dir" ]]; then
+        opts+=(-c "$dir")
+    fi
+    opts+=(-d)
+    opts+=(-P -F '#{pane_id}')
+    if [[ -n "$shell" ]]; then
+        opts+=("$shell")
+    fi
+    _tmux "${opts[@]}"
+}
+
 _create_session() {
     _require_session_started
     local dir="${_pane_dir:-$_default_dir}"
@@ -182,8 +199,8 @@ SourceFile() {
 }
 
 Split() {
-    _create_window_maybe
-    _tmux split-window -t "$_window_id"
+    read -r _pane_id <<< "$(_create_pane)"
+    _log "Pane created (session: $_session_id '$_session_name', window: $_window_id '$_window_name', pane: $_pane_id)"
 }
 
 Window() {
