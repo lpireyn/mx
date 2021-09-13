@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0
 
 ### Added
 
+- `-l`|`--list` option
 - DSL function `EnvVar`
 - DSL function alias `Cmd`
 - DSL function alias `Dir`

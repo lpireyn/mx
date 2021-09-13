@@ -68,6 +68,7 @@ FILE defaults to '.mx' in the current directory.
 mx does not execute a session if $TMUX is already set.
 
 Options:
+  -l|--list    Lists the available mx sessions and exits
   --tmux CMD   Specifies the tmux command to use
                Defaults to $MX_TMUX, then to 'tmux'
   --log FILE   Logs the tmux commands in FILE
@@ -131,7 +132,7 @@ See [CHANGELOG](CHANGELOG.md).
 
 - [x] DSL function to set environment variables
 - [x] DSL function aliases
-- [ ] Option to list the available mx sessions
+- [x] Option to list the available mx sessions
 
 ## Contributing
 
