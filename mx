@@ -400,7 +400,7 @@ mx_main() {
 
 # Constants
 
-declare -gr mx_version='0.1.0'
+declare -gr mx_version='0.2.0'
 
 # Main
 
