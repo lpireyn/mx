@@ -131,6 +131,7 @@ See [CHANGELOG](CHANGELOG.md).
 
 - [x] DSL function to set environment variables
 - [x] DSL function aliases
+- [ ] Option to list the available mx sessions
 
 ## Contributing
 
