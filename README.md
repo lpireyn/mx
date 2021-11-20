@@ -122,18 +122,6 @@ See the [`select-layout` tmux command](http://man.openbsd.org/OpenBSD-current/ma
 
 See [CHANGELOG](CHANGELOG.md).
 
-## Roadmap
-
-### Bugs
-
-- [ ] Panes created with the DSL function `Split` use the same directory and shell as the split pane
-
-### Features
-
-- [x] DSL function to set environment variables
-- [x] DSL function aliases
-- [x] Option to list the available mx sessions
-
 ## Contributing
 
 See [CONTRIBUTING](CONTRIBUTING.md).
