@@ -299,9 +299,12 @@ EOF
 }
 
 mx_list() {
+    local name
     for session_file in "${XDG_CONFIG_HOME:-$HOME/.config}/mx"/*; do
         if [[ -f "$session_file" ]]; then
-            printf '%s\n' "$(basename "${session_file%.mx}")"
+            name="${session_file##*/}"
+            name="${name%.mx}"
+            printf '%s\n' "$name"
         fi
     done
 }
