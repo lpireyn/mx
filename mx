@@ -96,9 +96,6 @@ _create_session() {
         opts+=("$shell")
     fi
     _tmux "${opts[@]}"
-    if [[ -n "$_default_shell" ]]; then
-        _tmux set-option -t "$_session_name" default-shell "$_default_shell"
-    fi
 }
 
 _create_window() {
@@ -130,6 +127,15 @@ _create_window_maybe() {
             # Session not yet created, create session and first window
             read -r _session_id _window_id _pane_id <<< "$(_create_session)"
             _log "Session created (session: $_session_id '$_session_name', window: $_window_id '$_window_name', pane: $_pane_id)"
+            # Set session default shell
+            if [[ -n "$_default_shell" ]]; then
+                _session_options['default-shell']="$_default_shell"
+            fi
+            # Set session options
+            local name
+            for name in "${!_session_options[@]}"; do
+                _tmux set-option -t "$_session_id" "$name" "${_session_options[$name]}"
+            done
         else
             # Session already created, create window
             read -r _window_id _pane_id <<< "$(_create_window)"
@@ -227,6 +233,19 @@ Session() {
         # A session with the same name already exists, attach client to it
         exec "$_tmux_cmd" attach-session -t "=$_session_name"
     fi
+}
+
+SessionOption() {
+    _require_param 'name' "$1"
+    _require_param 'value' "$2"
+    if [[ -n "$_window_name" ]]; then
+        _fail "${FUNCNAME[0]} specified too late"
+    fi
+    _require_session_started
+    if [[ -n "$_session_id" ]]; then
+        _fail "${FUNCNAME[0]} specified too late"
+    fi
+    _session_options["$1"]="$2"
 }
 
 Shell() {
@@ -390,6 +409,7 @@ mx_main() {
     declare _default_dir=
     declare -a _default_env=()
     declare _default_shell=
+    declare -A _session_options=()
     declare _window_id=
     declare _window_name=
     declare _pane_id=

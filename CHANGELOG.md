@@ -4,6 +4,12 @@ This changelog is based on [Keep a Changelog 1.0.0](https://keepachangelog.com/e
 
 This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0).
 
+## [Unreleased]
+
+### Added
+
+- DSL function `SessionOption` (#6)
+
 ## [0.2.1] - 2021-11-20
 
 ### Fixed

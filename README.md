@@ -95,6 +95,7 @@ An *mx session* file is a Bash script that calls the following *mx DSL functions
 | `EnvVar` NAME [VALUE] | Sets environment variable NAME to VALUE (or null) in the current pane (or in all panes of the session)
 | `Layout` LAYOUT | Sets the layout of the current window to LAYOUT (see [Layouts](#layouts)) |
 | `Session` NAME | Starts the session named NAME |
+| `SessionOption` NAME VALUE | Sets the session option NAME to VALUE |
 | `Shell` SHELL | Sets the shell command of the current pane (or the default shell command of the session) to SHELL |
 | `Source` | Alias of `SourceFile` |
 | `SourceFile` FILE | Sources the tmux file FILE |
