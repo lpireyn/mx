@@ -101,6 +101,7 @@ An *mx session* file is a Bash script that calls the following *mx DSL functions
 | `SourceFile` FILE | Sources the tmux file FILE |
 | `Split` | Splits the current window to create a pane |
 | `Window` NAME | Starts a window named NAME |
+| `WindowOption` NAME VALUE | Sets the window option (or the global window option) NAME to VALUE |
 
 **Note:**
 Although it's a Bash script, an mx session file does not need a shebang and does not have to be executable.

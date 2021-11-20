@@ -123,6 +123,7 @@ _create_window() {
 
 _create_window_maybe() {
     if [[ -z "$_window_id" ]]; then
+        local name
         if [[ -z "$_session_id" ]]; then
             # Session not yet created, create session and first window
             read -r _session_id _window_id _pane_id <<< "$(_create_session)"
@@ -132,15 +133,22 @@ _create_window_maybe() {
                 _session_options['default-shell']="$_default_shell"
             fi
             # Set session options
-            local name
             for name in "${!_session_options[@]}"; do
                 _tmux set-option -t "$_session_id" "$name" "${_session_options[$name]}"
+            done
+            # Set global window options
+            for name in "${!_global_window_options[@]}"; do
+                _tmux set-option -w -g -t "$_session_id" "$name" "${_global_window_options[$name]}"
             done
         else
             # Session already created, create window
             read -r _window_id _pane_id <<< "$(_create_window)"
             _log "Window created (session: $_session_id '$_session_name', window: $_window_id '$_window_name', pane: $_pane_id)"
         fi
+        # Set window options
+        for name in "${!_window_options[@]}"; do
+            _tmux set-option -w -t "$_window_id" "$name" "${_window_options[$name]}"
+        done
     fi
 }
 
@@ -153,6 +161,7 @@ _end_window() {
     _create_window_maybe
     _window_id=
     _window_name=
+    _window_options=()
     _pane_id=
     _pane_dir=
     _pane_env=()
@@ -284,6 +293,20 @@ Window() {
     _window_name="$*"
 }
 
+WindowOption() {
+    _require_param 'name' "$1"
+    _require_param 'value' "$2"
+    if [[ -n "$_window_name" ]]; then
+        _window_options["$1"]="$2"
+    else
+        _require_session_started
+        if [[ -n "$_session_id" ]]; then
+            _fail "${FUNCNAME[0]} specified too late"
+        fi
+        _global_window_options["$1"]="$2"
+    fi
+}
+
 # mx functions
 
 mx_version() {
@@ -410,8 +433,10 @@ mx_main() {
     declare -a _default_env=()
     declare _default_shell=
     declare -A _session_options=()
+    declare -A _global_window_options=()
     declare _window_id=
     declare _window_name=
+    declare -A _window_options=()
     declare _pane_id=
     declare _pane_dir=
     declare -a _pane_env=()
