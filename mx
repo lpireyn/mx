@@ -148,6 +148,7 @@ _end_window() {
     _window_id=
     _window_name=
     _pane_id=
+    _pane_dir=
     _pane_env=()
     _pane_shell=
 }
@@ -398,7 +399,12 @@ mx_main() {
     . "$session_file"
     # End session and attach client to it
     if _end_session; then
-        exec "$_tmux_cmd" attach-session -t "$_session_id"
+        local -a opts=(attach-session)
+        opts+=(-t "$_session_id")
+        if [[ -n "$_default_dir" ]]; then
+            opts+=(-c "$_default_dir")
+        fi
+        exec "$_tmux_cmd" "${opts[@]}"
     fi
 }
 
