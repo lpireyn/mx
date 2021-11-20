@@ -4,6 +4,12 @@ This changelog is based on [Keep a Changelog 1.0.0](https://keepachangelog.com/e
 
 This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0).
 
+## [0.2.1] - 2021-11-20
+
+### Fixed
+
+- The default directory and shell apply to manually created windows (#2)
+
 ## [0.2.0] - 2021-09-13
 
 ### Added
