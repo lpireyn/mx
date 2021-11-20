@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0
 
 - DSL function `SessionOption` (#6)
 - DSL function `WindowOption` (#7)
+- DSL function `Clock` (#4)
 
 ## [0.2.1] - 2021-11-20
 

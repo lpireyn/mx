@@ -87,6 +87,7 @@ An *mx session* file is a Bash script that calls the following *mx DSL functions
 
 | Function | Description |
 | --- | --- |
+| `Clock` | Displays a giant clock on the current pane |
 | `Cmd` | Alias of `Command` |
 | `Command` COMMAND [ARGS...] | Executes COMMAND in the current pane (by sending the corresponding keys) |
 | `Dir` | Alias of `Directory` |

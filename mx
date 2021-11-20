@@ -176,6 +176,11 @@ _end_window_maybe() {
 
 # DSL functions (alphabetically)
 
+Clock() {
+    _create_window_maybe
+    _tmux clock-mode -t "$_pane_id"
+}
+
 Cmd() {
     Command "$@"
 }
