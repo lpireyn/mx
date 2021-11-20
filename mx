@@ -2,6 +2,7 @@
 # -*- mode: sh -*-
 
 # mx, a tmux session manager
+# Homepage: https://gitlab.com/lpireyn/mx
 # Author: Laurent Pireyn
 
 # Private functions
