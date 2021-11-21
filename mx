@@ -130,7 +130,7 @@ _create_window_maybe() {
             _log "Session created (session: $_session_id '$_session_name', window: $_window_id '$_window_name', pane: $_pane_id)"
             # Set session default shell
             if [[ -n "$_default_shell" ]]; then
-                _session_options['default-shell']="$_default_shell"
+                _session_options[default-shell]="$_default_shell"
             fi
             # Set session options
             for name in "${!_session_options[@]}"; do
@@ -196,7 +196,7 @@ Dir() {
 }
 
 Directory() {
-    _require_param 'directory' "$1"
+    _require_param directory "$1"
     if [[ -n "$_window_name" ]]; then
         if [[ -n "$_window_id" ]]; then
             _fail "${FUNCNAME[0]} specified too late"
@@ -216,7 +216,7 @@ Env() {
 }
 
 EnvVar() {
-    _require_param 'name' "$1"
+    _require_param name "$1"
     if [[ -n "$_window_name" ]]; then
         if [[ -n "$_window_id" ]]; then
             _fail "${FUNCNAME[0]} specified too late"
@@ -250,8 +250,8 @@ Session() {
 }
 
 SessionOption() {
-    _require_param 'name' "$1"
-    _require_param 'value' "$2"
+    _require_param name "$1"
+    _require_param value "$2"
     if [[ -n "$_window_name" ]]; then
         _fail "${FUNCNAME[0]} specified too late"
     fi
@@ -263,7 +263,7 @@ SessionOption() {
 }
 
 Shell() {
-    _require_param 'shell' "$1"
+    _require_param shell "$1"
     if [[ -n "$_window_name" ]]; then
         if [[ -n "$_window_id" ]]; then
             _fail "${FUNCNAME[0]} specified too late"
@@ -283,7 +283,7 @@ Source() {
 }
 
 SourceFile() {
-    _require_param 'file' "$1"
+    _require_param file "$1"
     _tmux source-file "$1"
 }
 
@@ -299,8 +299,8 @@ Window() {
 }
 
 WindowOption() {
-    _require_param 'name' "$1"
-    _require_param 'value' "$2"
+    _require_param name "$1"
+    _require_param value "$2"
     if [[ -n "$_window_name" ]]; then
         _window_options["$1"]="$2"
     else
