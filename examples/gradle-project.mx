@@ -1,0 +1,17 @@
+# Example - Gradle project
+
+# Gradle project
+
+Session Gradle project
+Directory ~/gradle-project
+
+Window Build
+# Display a summary of the subprojects
+Command ./gradlew projects
+
+Window Test
+# Run the unit tests
+Command ./gradlew test
+# In another pane, monitor system during tests
+Split
+Command htop

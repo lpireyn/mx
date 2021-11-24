@@ -32,6 +32,8 @@ mx demo
 
 You should end up in a tmux session with three windows, as specified in `demo.mx`.
 
+[Examples](examples)
+
 ## Installation
 
 ### Requirements
@@ -107,6 +109,8 @@ An *mx session* file is a Bash script that calls the following *mx DSL functions
 **Note:**
 Although it's a Bash script, an mx session file does not need a shebang and does not have to be executable.
 However, it can use Bash constructs such as variables, conditions, loops, etc.
+
+Example: [Multiple servers](examples/multiple-servers.mx)
 
 ## Layouts
 

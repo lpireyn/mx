@@ -1,0 +1,18 @@
+# Example - Multiple servers
+
+Session Multiple servers
+
+# Bash features (array, loop) can be used to define multiple windows connecting to servers
+
+servers=(
+    server1.example.com
+    server2.example.com
+    server3.example.com
+    server4.example.com
+    server5.example.com
+)
+
+for server in "${servers[@]}"; do
+    Window Server "$server"
+    Command ssh "$server"
+done
