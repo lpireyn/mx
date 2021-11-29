@@ -4,6 +4,12 @@ This changelog is based on [Keep a Changelog 1.0.0](https://keepachangelog.com/e
 
 This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0).
 
+## [Unreleased]
+
+### Added
+
+- `mx` checks the version of Bash and fails if it's earlier than 4.0 (#10)
+
 ## [0.3.1] - 2021-11-24
 
 ### Fixed
