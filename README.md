@@ -38,8 +38,12 @@ You should end up in a tmux session with three windows, as specified in `demo.mx
 
 ### Requirements
 
-- [Bash](https://www.gnu.org/software/bash/)
+- [Bash](https://www.gnu.org/software/bash/) 4.0+
 - [tmux](https://github.com/tmux/tmux)
+
+**Note:**
+The version of Bash installed in MacOS is very old (3.x) and is incompatible with *mx*.
+A more recent version should be installed with [Homebrew](https://brew.sh/).
 
 ### Installation from sources
 
