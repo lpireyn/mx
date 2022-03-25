@@ -416,7 +416,7 @@ mx_main() {
                     ;;
             esac
         else
-            session_args+=($param)
+            session_args+=("$param")
         fi
     done
     local session_file
