@@ -13,7 +13,7 @@ with a comprehensive description of the bug and the steps to reproduce it.
 
 ## Features
 
-First, check the [documentation](https://gitlab.com/lpireyn/mx/-/blob/master/README.md)
+First, check the [documentation](https://gitlab.com/lpireyn/mx/-/blob/main/README.md)
 and make sure the feature you want is not already available.
 
 If the feature is not available, [create an issue](https://gitlab.com/lpireyn/mx/-/issues/new)
