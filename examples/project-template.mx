@@ -9,7 +9,7 @@ Session "$project"
 # Use the project name to configure the windows
 
 Window Project
-Directory "~/projects/$project"
+Directory ~/projects/$project
 
 Window Test
-Directory "~/projects/$project/test"
+Directory ~/projects/$project/test
