@@ -60,8 +60,8 @@ For convenience, the `mx` script can be copied to a directory in your `PATH` (ty
 ## Usage
 
 ```
-Usage: mx [OPTION]... [FILE]
-Execute the tmux session defined in the mx FILE.
+Usage: mx [OPTION]... [FILE] [--] [ARGS]...
+Execute the tmux session defined in the mx FILE, passing optional ARGS.
 
 If a tmux session with the same name already exists, the tmux client attaches to it,
 otherwise the session is created.
@@ -113,6 +113,7 @@ An *mx session* file is a Bash script that calls the following *mx DSL functions
 **Note:**
 Although it's a Bash script, an mx session file does not need a shebang and does not have to be executable.
 However, it can use Bash constructs such as variables, conditions, loops, etc.
+It can even use positional parameters.
 
 Example: [Multiple servers](examples/multiple-servers.mx)
 

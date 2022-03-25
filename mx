@@ -320,8 +320,8 @@ mx_version() {
 
 mx_usage() {
     cat <<EOF
-Usage: mx [OPTION]... [FILE]
-Execute the tmux session defined in the mx FILE.
+Usage: mx [OPTION]... [FILE] [--] [ARGS]...
+Execute the tmux session defined in the mx FILE, passing optional ARGS.
 
 If a tmux session with the same name already exists, the tmux client attaches to it,
 otherwise the session is created.
@@ -374,44 +374,50 @@ mx_main() {
     declare _log_file=
     # Parse parameters
     local session_file_name=
+    local -a session_args=()
     local param
+    local -i parse_session_args=0
     while [[ $# -gt 0 ]]; do
         param="$1"
         shift
-        case $param in
-            -l|--list)
-                mx_list
-                exit 0
-                ;;
-            --tmux)
-                _require_param 'tmux command' "$1"
-                _tmux_cmd="$1"
-                shift
-                ;;
-            --log)
-                _require_param 'log file' "$1"
-                _log_file="$1"
-                shift
-                ;;
-            --version)
-                mx_version
-                exit 0
-                ;;
-            -h|--help)
-                mx_usage
-                exit 0
-                ;;
-            -*)
-                _fail "Unknown option: $param" 2
-                ;;
-            *)
-                if [[ -z "$session_file_name" ]]; then
+        if [[ $parse_session_args -eq 0 ]]; then
+            case $param in
+                -l|--list)
+                    mx_list
+                    exit 0
+                    ;;
+                --tmux)
+                    _require_param 'tmux command' "$1"
+                    _tmux_cmd="$1"
+                    shift
+                    ;;
+                --log)
+                    _require_param 'log file' "$1"
+                    _log_file="$1"
+                    shift
+                    ;;
+                --version)
+                    mx_version
+                    exit 0
+                    ;;
+                -h|--help)
+                    mx_usage
+                    exit 0
+                    ;;
+                --)
+                    parse_session_args=1
+                    ;;
+                -*)
+                    _fail "Unknown option: $param" 2
+                    ;;
+                *)
                     session_file_name="$param"
-                else
-                    _fail "Unexpected parameter: $param" 2
-                fi
-                ;;
-        esac
+                    parse_session_args=1
+                    ;;
+            esac
+        else
+            session_args+=($param)
+        fi
     done
     local session_file
     if [[ -z "$session_file_name" ]]; then
@@ -452,9 +458,9 @@ mx_main() {
     declare -a _pane_env=()
     declare _pane_shell=
     # Execute session file
-    _log "Executing session file: $session_file"
+    _log "Executing session file: $session_file ${session_args[*]}"
     # shellcheck source=/dev/null
-    . "$session_file"
+    . "$session_file" "${session_args[@]}"
     # End session and attach client to it
     if _end_session; then
         local -a opts=(attach-session)
