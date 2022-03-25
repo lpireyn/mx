@@ -1,0 +1,15 @@
+# Example - Project template
+
+# Use the first argument as project name
+project="$1"
+
+# Use the project name as session name
+Session "$project"
+
+# Use the project name to configure the windows
+
+Window Project
+Directory "~/projects/$project"
+
+Window Test
+Directory "~/projects/$project/test"
