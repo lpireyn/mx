@@ -2,7 +2,8 @@
 # -*- mode: sh -*-
 
 # mx, a tmux session manager
-# Homepage: https://gitlab.com/lpireyn/mx
+# GitLab: https://gitlab.com/lpireyn/mx
+# sourcehut: https://git.sr.ht/~lpireyn/mx
 # Author: Laurent Pireyn
 
 # Private functions
@@ -341,7 +342,8 @@ Options:
   --version    Displays the mx version and exits
   -h|--help    Displays this help and exits
 
-mx homepage: <https://gitlab.com/lpireyn/mx>
+mx on GitLab: <https://gitlab.com/lpireyn/mx>
+mx on sourcehut: <https://git.sr.ht/~lpireyn/mx>
 EOF
 }
 

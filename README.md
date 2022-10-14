@@ -2,11 +2,14 @@
 
 **mx** is a [tmux](https://github.com/tmux/tmux) session manager written as a single [Bash](https://www.gnu.org/software/bash) script.
 
-[![Pipeline](https://img.shields.io/gitlab/pipeline/lpireyn/mx/main?label=Pipeline&style=flat-square&logo=gitlab)](https://gitlab.com/lpireyn/mx/-/commits/main)
 [![Apache License 2.0](https://img.shields.io/static/v1?label=License&message=Apache%20License%202.0&style=flat-square&color=informational&logo=apache)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Semantic Versioning 2.0.0](https://img.shields.io/static/v1?label=Semantic%20Versioning&message=2.0.0&style=flat-square&color=informational)](https://semver.org/spec/v2.0.0)
 [![Keep a Changelog 1.0.0](https://img.shields.io/static/v1?label=Keep%20a%20Changelog&message=1.0.0&style=flat-square&color=informational)](https://keepachangelog.com/en/1.0.0)
+
 [![Hosted on GitLab](https://img.shields.io/static/v1?label=Hosted%20on&message=GitLab&style=flat-square&color=informational&logo=gitlab)](https://gitlab.com/lpireyn/mx)
+[![Pipeline](https://img.shields.io/gitlab/pipeline/lpireyn/mx/main?label=Pipeline&style=flat-square&logo=gitlab)](https://gitlab.com/lpireyn/mx/-/commits/main)
+
+[![Hosted on sourcehut](https://img.shields.io/static/v1?label=Hosted%20on&message=sourcehut&style=flat-square&color=informational)](https://git.sr.ht/~lpireyn/mx)
 
 ## Quickstart
 
@@ -51,6 +54,12 @@ Clone the *mx* git repository:
 
 ``` shell
 git clone https://gitlab.com/lpireyn/mx.git ~/mx
+```
+
+or
+
+``` shell
+git clone https://git.sr.ht/~lpireyn/mx ~/mx
 ```
 
 This creates a `mx` directory in your home directory, which contains the `mx` script.
