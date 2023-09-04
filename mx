@@ -197,7 +197,7 @@ Dir() {
 }
 
 Directory() {
-    _require_param directory "$1"
+    _require_param directory "${1:-}"
     if [[ -n "$_window_name" ]]; then
         if [[ -n "$_window_id" ]]; then
             _fail "${FUNCNAME[0]} specified too late"
@@ -217,7 +217,7 @@ Env() {
 }
 
 EnvVar() {
-    _require_param name "$1"
+    _require_param name "${1:-}"
     if [[ -n "$_window_name" ]]; then
         if [[ -n "$_window_id" ]]; then
             _fail "${FUNCNAME[0]} specified too late"
@@ -233,13 +233,13 @@ EnvVar() {
 }
 
 Layout() {
-    _require_param 'layout name' "$1"
+    _require_param 'layout name' "${1:-}"
     _create_window_maybe
     _tmux select-layout -t "$_window_id" "$1"
 }
 
 Session() {
-    _require_param 'session name' "$1"
+    _require_param 'session name' "${1:-}"
     if [[ -n "$_session_id" ]]; then
         _fail 'Session already started'
     fi
@@ -251,8 +251,8 @@ Session() {
 }
 
 SessionOption() {
-    _require_param name "$1"
-    _require_param value "$2"
+    _require_param name "${1:-}"
+    _require_param value "${2:-}"
     if [[ -n "$_window_name" ]]; then
         _fail "${FUNCNAME[0]} specified too late"
     fi
@@ -264,7 +264,7 @@ SessionOption() {
 }
 
 Shell() {
-    _require_param shell "$1"
+    _require_param shell "${1:-}"
     if [[ -n "$_window_name" ]]; then
         if [[ -n "$_window_id" ]]; then
             _fail "${FUNCNAME[0]} specified too late"
@@ -284,7 +284,7 @@ Source() {
 }
 
 SourceFile() {
-    _require_param file "$1"
+    _require_param file "${1:-}"
     _tmux source-file "$1"
 }
 
@@ -294,14 +294,14 @@ Split() {
 }
 
 Window() {
-    _require_param 'window name' "$1"
+    _require_param 'window name' "${1:-}"
     _end_window_maybe
     _window_name="$*"
 }
 
 WindowOption() {
-    _require_param name "$1"
-    _require_param value "$2"
+    _require_param name "${1:-}"
+    _require_param value "${2:-}"
     if [[ -n "$_window_name" ]]; then
         _window_options["$1"]="$2"
     else
@@ -388,12 +388,12 @@ mx_main() {
                     exit 0
                     ;;
                 --tmux)
-                    _require_param 'tmux command' "$1"
+                    _require_param 'tmux command' "${1:-}"
                     _tmux_cmd="$1"
                     shift
                     ;;
                 --log)
-                    _require_param 'log file' "$1"
+                    _require_param 'log file' "${1:-}"
                     _log_file="$1"
                     shift
                     ;;

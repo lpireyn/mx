@@ -6,6 +6,12 @@ This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0
 
 Issue numbers refer to the [GitLab issues](https://gitlab.com/lpireyn/mx/-/issues).
 
+## [Unreleased]
+
+### Fixed
+
+- Prevent unbound variables errors (#14)
+
 ## [0.5.0] - 2022-03-25
 
 ### Added
