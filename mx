@@ -369,7 +369,6 @@ mx_main() {
     # Check Bash version
     if [[ "${BASH_VERSINFO[0]}" -lt 4 ]]; then
         _fail "Unsupported Bash version $BASH_VERSION, version 4.0+ required"
-        exit 1
     fi
     # Initialize variables
     declare _tmux_cmd="${MX_TMUX:-tmux}"
