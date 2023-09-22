@@ -8,6 +8,10 @@ Issue numbers refer to the [GitLab issues](https://gitlab.com/lpireyn/mx/-/issue
 
 ## [Unreleased]
 
+### Added
+
+- `-n`|`--no-attach` option (#16)
+
 ### Fixed
 
 - Prevent unbound variables errors (#14)

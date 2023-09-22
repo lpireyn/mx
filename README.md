@@ -83,12 +83,13 @@ FILE defaults to '.mx' in the current directory.
 mx does not execute a session if $TMUX is already set.
 
 Options:
-  -l|--list    Lists the available mx sessions and exits
-  --tmux CMD   Specifies the tmux command to use
-               Defaults to $MX_TMUX, then to 'tmux'
-  --log FILE   Logs the tmux commands in FILE
-  --version    Displays the mx version and exits
-  -h|--help    Displays this help and exits
+  -l|--list        Lists the available mx sessions and exits
+  -n|--no-attach   Do not attach the client to the tmux session
+  --tmux CMD       Specifies the tmux command to use
+                   Defaults to \$MX_TMUX, then to 'tmux'
+  --log FILE       Logs the tmux commands in FILE
+  --version        Displays the mx version and exits
+  -h|--help        Displays this help and exits
 ```
 
 mx supports the following common usecases out of the box:
