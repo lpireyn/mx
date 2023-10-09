@@ -7,6 +7,7 @@
 [![Keep a Changelog 1.0.0](https://img.shields.io/static/v1?label=Keep%20a%20Changelog&message=1.0.0&style=flat-square&color=informational)](https://keepachangelog.com/en/1.0.0)
 
 [![Hosted on GitLab](https://img.shields.io/static/v1?label=Hosted%20on&message=GitLab&style=flat-square&color=informational&logo=gitlab)](https://gitlab.com/lpireyn/mx)
+[![Latest release](https://img.shields.io/gitlab/v/release/lpireyn/mx?label=Latest%20release&message=GitLab&style=flat-square&color=informational&logo=gitlab)](https://gitlab.com/lpireyn/mx/-/releases/)
 [![Pipeline](https://img.shields.io/gitlab/pipeline/lpireyn/mx/main?label=Pipeline&style=flat-square&logo=gitlab)](https://gitlab.com/lpireyn/mx/-/commits/main)
 
 [![Hosted on sourcehut](https://img.shields.io/static/v1?label=Hosted%20on&message=sourcehut&style=flat-square&color=informational)](https://git.sr.ht/~lpireyn/mx)
