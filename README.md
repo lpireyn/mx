@@ -80,8 +80,6 @@ with and without the '.mx' extension.
 $XDG_CONFIG_HOME defaults to '$HOME/.config'.
 FILE defaults to '.mx' in the current directory.
 
-mx does not execute a session if $TMUX is already set.
-
 Options:
   -l|--list        Lists the available mx sessions and exits
   -n|--no-attach   Do not attach the client to the tmux session

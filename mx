@@ -175,6 +175,10 @@ _end_window_maybe() {
     fi
 }
 
+_is_in_session() {
+    [[ -n "${TMUX:-}" ]]
+}
+
 # DSL functions (alphabetically)
 
 Clock() {
@@ -247,8 +251,16 @@ Session() {
     if "$_tmux_cmd" has-session -t "=$_session_name" >/dev/null 2>&1; then
         # A session with the same name already exists
         if [[ $_no_attach -eq 0 ]]; then
-            # Attach client to the existing session
-            exec "$_tmux_cmd" attach-session -t "=$_session_name"
+            local -a opts=()
+            if _is_in_session; then
+                # Switch client to the existing session
+                opts+=(switch-client)
+            else
+                # Attach client to the existing session
+                opts+=(attach-session)
+            fi
+            opts+=(-t "=$_session_name")
+            exec "$_tmux_cmd" "${opts[@]}"
         else
             # Abort mx session
             exit 0
@@ -337,8 +349,6 @@ FILE is looked for in the current directory, then in '\$XDG_CONFIG_HOME/mx',
 with and without the '.mx' extension.
 \$XDG_CONFIG_HOME defaults to '\$HOME/.config'.
 FILE defaults to '.mx' in the current directory.
-
-mx does not execute a session if \$TMUX is already set.
 
 Options:
   -l|--list        Lists the available mx sessions and exits
@@ -450,10 +460,6 @@ mx_main() {
             _fail "Session file for session $session_file_name not found"
         fi
     fi
-    # Prevent nested sessions
-    if [[ -n "${TMUX+x}" ]]; then
-        _fail 'Already in tmux session'
-    fi
     # Initialize tmux variables
     declare _session_id=
     declare _session_name=
@@ -475,8 +481,14 @@ mx_main() {
     . "$session_file" "${session_args[@]}"
     # End session
     if _end_session && [[ $_no_attach -eq 0 ]]; then
-        # Attach client to the session
-        local -a opts=(attach-session)
+        local -a opts=()
+        if _is_in_session; then
+            # Switch client to the session
+            opts+=(switch-client)
+        else
+            # Attach client to the session
+            opts+=(attach-session)
+        fi
         opts+=(-t "$_session_id")
         if [[ -n "$_default_dir" ]]; then
             opts+=(-c "$_default_dir")

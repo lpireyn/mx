@@ -6,6 +6,12 @@ This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0
 
 Issue numbers refer to the [GitLab issues](https://gitlab.com/lpireyn/mx/-/issues).
 
+## [Unreleased]
+
+### Changed
+
+- Allow running `mx` within `tmux` session (#17)
+
 ## [0.6.0] - 2023-09-22
 
 ### Added
