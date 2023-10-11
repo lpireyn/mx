@@ -226,13 +226,13 @@ EnvVar() {
         if [[ -n "$_window_id" ]]; then
             _fail "${FUNCNAME[0]} specified too late"
         fi
-        _pane_env+=("$1=$2")
+        _pane_env+=("$1=${2:-}")
     else
         _require_session_started
         if [[ -n "$_session_id" ]]; then
             _fail "${FUNCNAME[0]} specified too late"
         fi
-        _default_env+=("$1=$2")
+        _default_env+=("$1=${2:-}")
     fi
 }
 
