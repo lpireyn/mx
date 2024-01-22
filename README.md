@@ -100,24 +100,25 @@ mx supports the following common usecases out of the box:
 
 An *mx session* file is a Bash script that calls the following *mx DSL functions* to configure the tmux session.
 
-| Function | Description |
-| --- | --- |
-| `Clock` | Displays a giant clock on the current pane |
-| `Cmd` | Alias of `Command` |
-| `Command` COMMAND [ARGS...] | Executes COMMAND in the current pane (by sending the corresponding keys) |
-| `Dir` | Alias of `Directory` |
-| `Directory` DIRECTORY | Sets the current directory of the current pane (or the default directory of the session) to DIRECTORY |
-| `Env` | Alias of `EnvVar` |
-| `EnvVar` NAME [VALUE] | Sets environment variable NAME to VALUE (or null) in the current pane (or in all panes of the session)
-| `Layout` LAYOUT | Sets the layout of the current window to LAYOUT (see [Layouts](#layouts)) |
-| `Session` NAME | Starts the session named NAME |
-| `SessionOption` NAME VALUE | Sets the session option NAME to VALUE |
-| `Shell` SHELL | Sets the shell command of the current pane (or the default shell command of the session) to SHELL |
-| `Source` | Alias of `SourceFile` |
-| `SourceFile` FILE | Sources the tmux file FILE |
-| `Split` | Splits the current window to create a pane |
-| `Window` NAME | Starts a window named NAME |
-| `WindowOption` NAME VALUE | Sets the window option (or the global window option) NAME to VALUE |
+| Function                    | Description                                                                                            |
+|-----------------------------|--------------------------------------------------------------------------------------------------------|
+| `Clock`                     | Displays a giant clock on the current pane                                                             |
+| `Cmd`                       | Alias of `Command`                                                                                     |
+| `Command` COMMAND [ARGS...] | Executes COMMAND in the current pane (by sending the corresponding keys)                               |
+| `Dir`                       | Alias of `Directory`                                                                                   |
+| `Directory` DIRECTORY       | Sets the current directory of the current pane (or the default directory of the session) to DIRECTORY  |
+| `Env`                       | Alias of `EnvVar`                                                                                      |
+| `EnvVar` NAME [VALUE]       | Sets environment variable NAME to VALUE (or null) in the current pane (or in all panes of the session)
+| `Layout` LAYOUT             | Sets the layout of the current window to LAYOUT (see [Layouts](#layouts))                              |
+| `ServerOption` NAME VALUE   | Sets the server option NAME to VALUE                                                                   |
+| `Session` NAME              | Starts the session named NAME                                                                          |
+| `SessionOption` NAME VALUE  | Sets the session option NAME to VALUE                                                                  |
+| `Shell` SHELL               | Sets the shell command of the current pane (or the default shell command of the session) to SHELL      |
+| `Source`                    | Alias of `SourceFile`                                                                                  |
+| `SourceFile` FILE           | Sources the tmux file FILE                                                                             |
+| `Split`                     | Splits the current window to create a pane                                                             |
+| `Window` NAME               | Starts a window named NAME                                                                             |
+| `WindowOption` NAME VALUE   | Sets the window option (or the global window option) NAME to VALUE                                     |
 
 **Note:**
 Although it's a Bash script, an mx session file does not need a shebang and does not have to be executable.

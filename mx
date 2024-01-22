@@ -129,6 +129,10 @@ _create_window_maybe() {
             # Session not yet created, create session and first window
             read -r _session_id _window_id _pane_id <<< "$(_create_session)"
             _log "Session created (session: $_session_id '$_session_name', window: $_window_id '$_window_name', pane: $_pane_id)"
+            # Set server options
+            for name in "${!_server_options[@]}"; do
+                _tmux set-option -s "$name" "${_server_options[$name]}"
+            done
             # Set session default shell
             if [[ -n "$_default_shell" ]]; then
                 _session_options[default-shell]="$_default_shell"
@@ -240,6 +244,19 @@ Layout() {
     _require_param 'layout name' "${1:-}"
     _create_window_maybe
     _tmux select-layout -t "$_window_id" "$1"
+}
+
+ServerOption() {
+    _require_param name "${1:-}"
+    _require_param value "${2:-}"
+    if [[ -n "$_window_name" ]]; then
+        _fail "${FUNCNAME[0]} specified too late"
+    fi
+    _require_session_started
+    if [[ -n "$_session_id" ]]; then
+        _fail "${FUNCNAME[0]} specified too late"
+    fi
+    _server_options["$1"]="$2"
 }
 
 Session() {
@@ -461,6 +478,7 @@ mx_main() {
         fi
     fi
     # Initialize tmux variables
+    declare -A _server_options=()
     declare _session_id=
     declare _session_name=
     declare _default_dir=
