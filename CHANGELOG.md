@@ -12,6 +12,10 @@ Issue numbers refer to the [GitLab issues](https://gitlab.com/lpireyn/mx/-/issue
 
 - DSL function `ServerOption` (#18)
 
+### Fixed
+
+- Fixed invalid `-c` option (#19)
+
 ## [0.7.0] - 2023-10-09
 
 ### Changed

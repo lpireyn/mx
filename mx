@@ -508,9 +508,6 @@ mx_main() {
             opts+=(attach-session)
         fi
         opts+=(-t "$_session_id")
-        if [[ -n "$_default_dir" ]]; then
-            opts+=(-c "$_default_dir")
-        fi
         exec "$_tmux_cmd" "${opts[@]}"
     fi
 }
