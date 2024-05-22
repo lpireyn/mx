@@ -514,7 +514,7 @@ mx_main() {
 
 # Constants
 
-declare -r mx_version='0.7.0'
+declare -r mx_version='0.8.0'
 
 # Main
 

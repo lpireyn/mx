@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0
 
 Issue numbers refer to the [GitLab issues](https://gitlab.com/lpireyn/mx/-/issues).
 
-## [Unreleased]
+## [0.8.0] - 2024-05-23
 
 ### Added
 
