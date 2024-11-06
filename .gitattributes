@@ -1,0 +1,9 @@
+# Default
+* text=auto
+
+# Text
+*.md text diff=markdown
+LICENSE text
+.editorconfig text
+.gitattributes text
+.gitignore text
