@@ -3,6 +3,7 @@
 
 # mx, a tmux session manager
 # GitLab: https://gitlab.com/lpireyn/mx
+# GitHub: https://github.com/lpireyn/mx
 # sourcehut: https://git.sr.ht/~lpireyn/mx
 # Author: Laurent Pireyn
 
@@ -377,6 +378,7 @@ Options:
   -h|--help        Displays this help and exits
 
 mx on GitLab: <https://gitlab.com/lpireyn/mx>
+mx on GitHub: <https://github.com/lpireyn/mx>
 mx on sourcehut: <https://git.sr.ht/~lpireyn/mx>
 EOF
 }

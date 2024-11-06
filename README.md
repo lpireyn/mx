@@ -10,6 +10,8 @@
 [![Latest release](https://img.shields.io/gitlab/v/release/lpireyn/mx?label=Latest%20release&message=GitLab&style=flat-square&color=informational&logo=gitlab)](https://gitlab.com/lpireyn/mx/-/releases/)
 [![Pipeline](https://img.shields.io/gitlab/pipeline/lpireyn/mx/main?label=Pipeline&style=flat-square&logo=gitlab)](https://gitlab.com/lpireyn/mx/-/commits/main)
 
+[![Hosted on GitHub](https://img.shields.io/static/v1?label=Hosted%20on&message=GitHub&style=flat-square&color=informational&logo=github)](https://github.com/lpireyn/mx)
+
 [![Hosted on sourcehut](https://img.shields.io/static/v1?label=Hosted%20on&message=sourcehut&style=flat-square&color=informational)](https://git.sr.ht/~lpireyn/mx)
 
 ## Quickstart
@@ -55,6 +57,12 @@ Clone the *mx* git repository:
 
 ``` shell
 git clone https://gitlab.com/lpireyn/mx.git ~/mx
+```
+
+or
+
+``` shell
+git clone https://github.com/lpireyn/mx.git ~/mx
 ```
 
 or
